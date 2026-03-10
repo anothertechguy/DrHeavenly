@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#ff1493",
+            "primary-glow": "rgba(255, 20, 147, 0.4)",
+            "background-light": "#fafafa",
+            "background-dark": "#0f050f",
+            "gold": "#d4af37",
+            "maroon-depth": "#4a0404",
+          },
+          fontFamily: {
+            "display": ["Newsreader", "serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .gold-gradient {
+      background: linear-gradient(135deg, #d4af37 0%, #f9f295 50%, #d4af37 100%)
+    }
+
+    .silk-texture {
+      background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAfhgg4hgUe-nUAYSYc-GBC0d-dyoWBCNPccXsmKgoQ5N3xcbnfGTJAxwvkOSKo_3pYYPO8-fyA2ZUKoKn_rFSfoCHWkQBUhlGRb6GgeXDc0d2XAs0kr0XQOU284BWb42sI7W9zvsHFbIZw_Y7udyLcGIZEmWKSlaLKwngNiOG_YMwDEpXXKTX8ey7WNjk8SseV8B6zCAsD1Mi0cT0AJpEXjXHLulZ4XH5-mYJdvBPfSRv8b2-lKndubQQPhp0PW8UlVW-LhUQqPgm5)
+    }
+
+    .gold-border {
+      border: 1px solid #d4af37
+    }
+
+    .text-glow {
+      text-shadow: 0 0 15px var(--tw-color-primary-glow, rgba(255, 20, 147, 0.5));
+    }
+
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dark .glassmorphism {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .gsap-reveal {
+      visibility: hidden;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0%);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+
+    .pause-on-hover:hover .animate-marquee {
+      animation-play-state: paused;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body
+  class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 overflow-x-hidden">
+  <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root">
+    <div class="layout-container flex h-full grow flex-col">
+      <!-- Navigation -->
+      <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-20 py-6 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+        <div
+          class="flex items-center gap-2 lg:gap-3 text-maroon-depth dark:text-primary cursor-pointer hover:opacity-80 transition-opacity">
+          <div class="text-primary flex items-center justify-center">
+            <span
+              class="material-symbols-outlined text-3xl lg:text-4xl drop-shadow-[0_0_8px_rgba(255,20,147,0.6)]">stream</span>
+          </div>
+          <h2
+            class="hidden lg:block text-2xl lg:text-3xl font-display font-black tracking-tight uppercase italic text-maroon-depth dark:text-white mt-1">
+            DR. HEAVENLY</h2>
+        </div>
+        <div class="hidden lg:flex flex-1 justify-end gap-10 items-center">
+          <nav class="flex items-center gap-8">
+            <a class="hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest text-maroon-depth dark:text-gold"
+              href="#campaign">Campaign</a>
+
+            <a class="hover:text-primary transition-colors text-sm font-display font-medium uppercase tracking-widest text-primary"
+              href="https://smilesbydrheavenly.com" target="_blank">Medical</a>
+            <a class="hover:text-primary transition-colors text-sm font-semibold uppercase tracking-widest"
+              href="https://www.drheavenlyuniversity.com/free-webinar" target="_blank">University</a>
+          </nav>
+          <div class="flex items-center gap-3">
+            <a href="https://www.instagram.com/dr_heavenly/" target="_blank"
+              class="size-10 rounded-full border-2 border-primary/40 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-[0_0_15px_rgba(255,20,147,0.15)] hover:shadow-[0_0_20px_rgba(255,20,147,0.4)] group">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.169a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@dr_heavenly" target="_blank"
+              class="size-10 rounded-full border-2 border-primary/40 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-[0_0_15px_rgba(255,20,147,0.15)] hover:shadow-[0_0_20px_rgba(255,20,147,0.4)] group">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/people/Heavenly-Williams-Kimes/1553209297/" target="_blank"
+              class="size-10 rounded-full border-2 border-primary/40 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-[0_0_15px_rgba(255,20,147,0.15)] hover:shadow-[0_0_20px_rgba(255,20,147,0.4)] group">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/@Dr_Heavenly" target="_blank"
+              class="size-10 rounded-full border-2 border-primary/40 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-[0_0_15px_rgba(255,20,147,0.15)] hover:shadow-[0_0_20px_rgba(255,20,147,0.4)] group">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="lg:hidden flex items-center gap-2">
+          <a href="https://www.instagram.com/dr_heavenly/" target="_blank"
+            class="size-9 rounded-full border border-primary/50 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.169a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@dr_heavenly" target="_blank"
+            class="size-9 rounded-full border border-primary/50 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z" />
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/people/Heavenly-Williams-Kimes/1553209297/" target="_blank"
+            class="size-9 rounded-full border border-primary/50 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@Dr_Heavenly" target="_blank"
+            class="size-9 rounded-full border border-primary/50 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+        </div>
+      </header>
+      <main class="flex-1">
+        <!-- Hero Section -->
+        <section class="relative px-6 md:px-20 py-20 md:py-32 overflow-hidden">
+          <div
+            class="absolute top-0 right-0 -z-10 w-full lg:w-1/2 h-full opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent">
+          </div>
+          <div class="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center gap-12">
+            <div class="flex flex-col gap-8 lg:w-1/2">
+              <div
+                class="gsap-hero inline-flex items-center self-start gap-2 px-4 py-2 rounded-full glassmorphism text-gold text-xs font-bold uppercase tracking-[0.2em] shadow-lg">
+                <span class="material-symbols-outlined text-sm">stars</span>
+                The Dazzling Empire
+              </div>
+              <h1
+                class="gsap-hero text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter text-maroon-depth dark:text-slate-100">
+                The <span class="text-primary italic text-glow">Boss Lady</span> <br />Legacy.
+              </h1>
+              <p
+                class="gsap-hero text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-lg font-medium">
+                Dentist. Author. Entrepreneur. TV Star. <br />
+                Join Dr. Heavenly's journey of unparalleled luxury, clinical excellence, and mastery.
+              </p>
+              <div class="gsap-hero grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 pt-6 w-full max-w-2xl">
+                <div class="text-left border-l-[3px] border-primary/40 pl-4 py-1 relative group cursor-default">
+                  <div
+                    class="absolute inset-0 bg-primary/5 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  </div>
+                  <p
+                    class="text-maroon-depth dark:text-gold text-3xl md:text-5xl font-black mb-1 transition-transform group-hover:translate-x-1 origin-left duration-500">
+                    25+</p>
+                  <p
+                    class="text-slate-500 dark:text-white/60 text-[10px] md:text-xs uppercase tracking-[0.15em] font-bold">
+                    Years of Experience</p>
+                </div>
+                <div class="text-left border-l-[3px] border-primary/40 pl-4 py-1 relative group cursor-default">
+                  <div
+                    class="absolute inset-0 bg-primary/5 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  </div>
+                  <p
+                    class="text-maroon-depth dark:text-gold text-3xl md:text-5xl font-black mb-1 transition-transform group-hover:translate-x-1 origin-left duration-500">
+                    5k+</p>
+                  <p
+                    class="text-slate-500 dark:text-white/60 text-[10px] md:text-xs uppercase tracking-[0.15em] font-bold">
+                    Implants Placed</p>
+                </div>
+                <div class="text-left border-l-[3px] border-primary/40 pl-4 py-1 relative group cursor-default">
+                  <div
+                    class="absolute inset-0 bg-primary/5 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  </div>
+                  <p
+                    class="text-maroon-depth dark:text-gold text-3xl md:text-5xl font-black mb-1 transition-transform group-hover:translate-x-1 origin-left duration-500">
+                    10+</p>
+                  <p
+                    class="text-slate-500 dark:text-white/60 text-[10px] md:text-xs uppercase tracking-[0.15em] font-bold">
+                    Years on TV</p>
+                </div>
+                <div class="text-left border-l-[3px] border-primary/40 pl-4 py-1 relative group cursor-default">
+                  <div
+                    class="absolute inset-0 bg-primary/5 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  </div>
+                  <p
+                    class="text-maroon-depth dark:text-gold text-3xl md:text-5xl font-black mb-1 transition-transform group-hover:translate-x-1 origin-left duration-500">
+                    100s</p>
+                  <p
+                    class="text-slate-500 dark:text-white/60 text-[10px] md:text-xs uppercase tracking-[0.15em] font-bold">
+                    Professionals Mentored</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full max-w-[340px] mx-auto lg:max-w-none lg:w-1/2 relative gsap-hero-img">
+              <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full mix-blend-screen"></div>
+              <div
+                class="relative aspect-[4/5] w-full max-w-[500px] mx-auto bg-slate-200 rounded-3xl overflow-hidden shadow-2xl border border-white/20">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform hover:scale-110 duration-1000"
+                  data-alt="Sophisticated portrait of Dr. Heavenly"
+                  style='background-image: url("assets/dr heavenly main bio image.png");'></div>
+                <div
+                  class="absolute bottom-0 left-0 right-0 p-8 pt-20 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                  <p class="text-white text-3xl font-display italic">"Success looks good on you."</p>
+                  <p class="text-primary font-bold tracking-widest uppercase text-xs mt-2">— Dr. Heavenly Kimes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Featured On Logos -->
+        <section class="py-16 bg-white dark:bg-black/90 border-y border-gold/20 overflow-hidden relative">
+          <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold/5 via-transparent to-transparent pointer-events-none">
+          </div>
+          <div class="max-w-[1200px] mx-auto px-6 mb-8 text-center relative z-10 gsap-fade-up">
+            <h4
+              class="text-maroon-depth dark:text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4 inline-block border-b border-maroon-depth dark:border-gold pb-2 opacity-80">
+              Dr. Heavenly Has Been
+            </h4>
+            <h2 class="text-3xl md:text-5xl font-display italic text-slate-800 dark:text-white">
+              <span class="text-gold">Featured</span> On
+            </h2>
+          </div>
+
+          <div class="relative w-full overflow-hidden pause-on-hover mt-10">
+            <!-- Left/Right Fade -->
+            <div
+              class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none">
+            </div>
+            <div
+              class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none">
+            </div>
+
+            <div class="flex animate-marquee whitespace-nowrap items-center w-max">
+              <!-- Set 1 -->
+              <div
+                class="flex gap-12 md:gap-20 px-6 md:px-10 items-center opacity-70 hover:opacity-100 transition-opacity">
+                <img src="assets/logos/black enterprise.png" alt="Black Enterprise Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/bravo logo.avif" alt="Bravo Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/cbs 11 alive logo.png" alt="CBS 11 Alive Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/cbs radio logo.png" alt="CBS Radio Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/fox news logo.png" alt="Fox News Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/good day atl logo.png" alt="Good Day ATL Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/married to med logo.png" alt="Married to Medicine Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/oprah magazine logo.png" alt="Oprah Magazine Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/sister circle logo.png" alt="Sister Circle Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/steve harvey logo.png" alt="Steve Harvey Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+              </div>
+              <!-- Set 2 (Duplicate for seamless loop) -->
+              <div
+                class="flex gap-12 md:gap-20 px-6 md:px-10 items-center opacity-70 hover:opacity-100 transition-opacity">
+                <img src="assets/logos/black enterprise.png" alt="Black Enterprise Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/bravo logo.avif" alt="Bravo Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/cbs 11 alive logo.png" alt="CBS 11 Alive Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/cbs radio logo.png" alt="CBS Radio Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/fox news logo.png" alt="Fox News Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/good day atl logo.png" alt="Good Day ATL Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/married to med logo.png" alt="Married to Medicine Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/oprah magazine logo.png" alt="Oprah Magazine Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/sister circle logo.png" alt="Sister Circle Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+                <img src="assets/logos/steve harvey logo.png" alt="Steve Harvey Logo"
+                  class="h-10 md:h-14 object-contain transition-all duration-500 hover:scale-110">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Campaign Section -->
+        <section id="campaign" class="px-6 md:px-20 py-32 bg-maroon-depth relative overflow-hidden">
+          <div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay"
+            style="background-image: url('assets/congress_campaign_bg.png');"></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-background-light dark:from-slate-900 to-transparent opacity-80 z-0">
+          </div>
+          <div class="max-w-[1200px] mx-auto relative z-10 flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2 gsap-fade-up">
+              <h2
+                class="text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4 inline-block border-b border-gold pb-2">
+                The Next Chapter</h2>
+              <h3 class="text-4xl md:text-6xl font-black text-white leading-tight mb-8">Running for <br /><span
+                  class="italic text-primary text-glow">U.S. Congress</span></h3>
+              <p class="text-white/80 text-lg mb-8 leading-relaxed font-medium">Dr. Heavenly Kimes is bringing her
+                unparalleled business acumen, dedication to community, and visionary leadership to the national stage.
+                Join her campaign for Georgia's 13th Congressional District.</p>
+              <a href="https://drheavenlyforgeorgia.com" target="_blank"
+                class="inline-flex min-w-[200px] items-center justify-center rounded-full h-14 px-8 bg-gradient-to-r from-gold to-yellow-600 text-maroon-depth text-sm font-bold tracking-widest uppercase hover:scale-105 transition-transform shadow-xl shadow-gold/20">
+                Support the Campaign
+              </a>
+            </div>
+            <div class="md:w-1/2 gsap-fade-up w-full">
+              <div
+                class="aspect-square max-w-[500px] mx-auto rounded-3xl overflow-hidden shadow-2xl border border-white/20 glassmorphism relative group cursor-pointer"
+                onclick="window.open('https://drheavenlyforgeorgia.com', '_blank')">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform hover:scale-110 duration-1000"
+                  style="background-image: url('assets/congress_campaign_bg.png'); filter: saturate(1.2);"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-maroon-depth/90 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8 w-full flex justify-between items-end">
+                  <p class="text-gold font-display text-3xl italic">"Empowering our community."</p>
+                  <span
+                    class="material-symbols-outlined text-white text-4xl group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Portfolio Grid -->
+        <section class="px-6 md:px-20 py-32 bg-background-light dark:bg-slate-900 silk-texture relative">
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 pointer-events-none"></div>
+          <div class="max-w-[1200px] mx-auto relative z-10">
+            <div class="flex flex-col mb-16 gap-6">
+              <div class="max-w-2xl gsap-fade-up">
+                <h2
+                  class="text-maroon-depth dark:text-gold text-sm font-bold tracking-[0.3em] uppercase mb-4 inline-block border-b border-maroon-depth dark:border-gold pb-2">
+                  The Portfolio</h2>
+                <h3 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight">A
+                  Multi-Dimensional <br /><span class="text-primary italic text-glow">Empire</span> of Influence</h3>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 gap-12 md:grid-cols-3 max-w-7xl mx-auto">
+              <!-- Smiles by Dr Heavenly -->
+              <a href="https://smilesbydrheavenly.com" target="_blank" class="group block gsap-card">
+                <div
+                  class="relative aspect-[4/3] overflow-hidden rounded-2xl mb-8 shadow-2xl border border-white/10 glassmorphism">
+                  <div
+                    class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                    data-alt="Smiles By Dr Heavenly Clinic"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwhE9EwfmL80v4AoHCF8upx0T1PldMgCv6BCH4LQzMbS6GT456Oz0XeoXCmUmgfpLmsrqTSTf83tiTIuSl4FzGzOFlssc6QsMkpsdNarlw8ewvndo7xgycN84gOIg5DRVYdmRJfwerGdCQ6B-ZlNn53aAiH0MCmZBRe8ZHznBDTugZoW2zoeDLsbxNKTLBdP-OKL7vliryelq34FmSUowPWUcD3P530g6_9n1VWgWY1KdW0OjPHQ3j0IGC21W8_ZQF1PcQ8MD-oDj0");'>
+                  </div>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-maroon-depth/90 via-maroon-depth/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity">
+                  </div>
+                  <div class="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+                    <div>
+                      <h4 class="text-2xl font-bold text-white mb-2 italic">Smiles by Dr. Heavenly</h4>
+                      <p class="text-white/80 text-sm font-medium">Atlanta's Premier Cosmetic Dentistry</p>
+                    </div>
+                    <span
+                      class="material-symbols-outlined text-white transform group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                  </div>
+                </div>
+                <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed px-4">Led by Dr. Heavenly Kimes,
+                  specializing in veneers, implants, and complete smile makeovers. Every procedure is a masterpiece of
+                  art and science.</p>
+              </a>
+              <!-- Heavenly University -->
+              <a href="https://www.drheavenlyuniversity.com/free-webinar" target="_blank" class="group block gsap-card">
+                <div
+                  class="relative aspect-[4/3] overflow-hidden rounded-2xl mb-8 shadow-2xl border border-white/10 glassmorphism">
+                  <div
+                    class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                    data-alt="Heavenly University Mentorship"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPFEKfo9ueG9pYR_zFzDvB3bCniN-2oB6dfJavyIFLMF_HF89ahdF-h9LtqiV5O8azUNp676FAxn7Th3ATZSjLYAh0DIBqluh0O9glaFkhNQu4FhKbSToy7nuL5wKBv3tft8txZELlpn0_odZTNSY0dvUoIOW_j4fCnaqJSloEGwZ05taT6dPRYH632txX_zuf9WGLZq_p_nHpOwh1qW58H81BoqvKpTkdGQnLjXkGoTUDqyeoYjXp6WUG5IB5GCAn2Pq_VogSSi40");'>
+                  </div>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity">
+                  </div>
+                  <div class="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+                    <div>
+                      <h4 class="text-2xl font-bold text-white mb-2 italic">Dr. Heavenly University</h4>
+                      <p class="text-gold text-sm font-bold uppercase tracking-widest">Enroll Today</p>
+                    </div>
+                    <span
+                      class="material-symbols-outlined text-white transform group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                  </div>
+                </div>
+                <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed px-4">Mastering the business of
+                  beauty. Get unparalleled real-world mentorship and curriculum designed for the next generation of
+                  powerhouse CEOs.</p>
+              </a>
+              <!-- Congressional Campaign -->
+              <a href="https://drheavenlyforgeorgia.com" target="_blank" class="group block gsap-card">
+                <div
+                  class="relative aspect-[4/3] overflow-hidden rounded-2xl mb-8 shadow-2xl border border-white/10 glassmorphism">
+                  <div
+                    class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 mix-blend-multiply"
+                    style='background-image: url("assets/congress_campaign_bg.png");'>
+                  </div>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-black/20 opacity-80 group-hover:opacity-90 transition-opacity">
+                  </div>
+                  <div class="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+                    <div>
+                      <h4 class="text-2xl font-bold text-white mb-2 italic">For Georgia</h4>
+                      <p class="text-white/90 text-sm font-bold uppercase tracking-widest">U.S. Congress 2026</p>
+                    </div>
+                    <span
+                      class="material-symbols-outlined text-white transform group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                  </div>
+                </div>
+                <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed px-4">Bringing visionary leadership
+                  and community empowerment to the national stage. Support the movement for District 13.</p>
+              </a>
+            </div>
+          </div>
+        </section>
+        <!-- Bio Section -->
+        <section
+          class="px-6 md:px-20 py-32 bg-white dark:bg-slate-900 border-y border-gold/20 overflow-hidden relative">
+          <div
+            class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none">
+          </div>
+          <div class="max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+            <div class="lg:w-1/2 order-2 lg:order-1 gsap-fade-up">
+              <div
+                class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-bold uppercase tracking-[0.2em] mb-6 shadow-sm">
+                <span class="material-symbols-outlined text-sm">verified</span>
+                The Visionary
+              </div>
+              <h2 class="text-5xl md:text-7xl font-black text-maroon-depth dark:text-white mb-8 leading-tight">
+                Meet Dr. <span class="text-primary italic text-glow">Heavenly</span>
+              </h2>
+              <div class="space-y-6 text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                <p>
+                  Dr. Heavenly Kimes is much more than a world-class dentist; she is a powerhouse entrepreneur, a
+                  best-selling author, and a globally recognized media personality. As a fan-favorite star on Bravo's
+                  hit series <span class="italic font-bold text-primary">'Married to Medicine'</span>, she captivates
+                  millions with her wit, wisdom, and uncompromising standards.
+                </p>
+                <p>
+                  As the CEO of Heavenly Dental Associates, Inc., she has built a multi-million dollar empire from the
+                  ground up. Her mission is to empower others to achieve financial independence, unparalleled clinical
+                  excellence, and personal luxury through the same principles of hard work and strategic vision.
+                </p>
+              </div>
+              <div class="mt-12 flex flex-col gap-4">
+                <div
+                  class="group flex items-center justify-between p-6 rounded-2xl glassmorphism border border-white/40 dark:border-white/10 hover:border-gold/50 transition-all duration-500 hover:bg-white/50 dark:hover:bg-black/10 cursor-default relative overflow-hidden shadow-lg hover:shadow-gold/20">
+                  <div
+                    class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-gold transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500">
+                  </div>
+                  <div>
+                    <p class="text-maroon-depth dark:text-white font-black text-2xl tracking-tight">Doctor of Dental
+                      Surgery</p>
+                    <p class="text-primary text-xs font-bold uppercase tracking-[0.2em] mt-1">Meharry Medical College
+                    </p>
+                  </div>
+                  <span
+                    class="material-symbols-outlined text-gold text-3xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">school</span>
+                </div>
+
+                <div
+                  class="group flex items-center justify-between p-6 rounded-2xl glassmorphism border border-white/40 dark:border-white/10 hover:border-gold/50 transition-all duration-500 hover:bg-white/50 dark:hover:bg-black/10 cursor-default relative overflow-hidden shadow-lg hover:shadow-gold/20">
+                  <div
+                    class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-gold transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500">
+                  </div>
+                  <div>
+                    <p class="text-maroon-depth dark:text-white font-black text-2xl tracking-tight">Best-Selling Author
+                    </p>
+                    <p class="text-primary text-xs font-bold uppercase tracking-[0.2em] mt-1">The Business of Beauty</p>
+                  </div>
+                  <span
+                    class="material-symbols-outlined text-gold text-3xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">menu_book</span>
+                </div>
+
+                <div
+                  class="group flex items-center justify-between p-6 rounded-2xl glassmorphism border border-white/40 dark:border-white/10 hover:border-gold/50 transition-all duration-500 hover:bg-white/50 dark:hover:bg-black/10 cursor-default relative overflow-hidden shadow-lg hover:shadow-gold/20">
+                  <div
+                    class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-gold transform scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500">
+                  </div>
+                  <div>
+                    <p class="text-maroon-depth dark:text-white font-black text-2xl tracking-tight">Reality TV Star</p>
+                    <p class="text-primary text-xs font-bold uppercase tracking-[0.2em] mt-1">Married To Medicine</p>
+                  </div>
+                  <span
+                    class="material-symbols-outlined text-gold text-3xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">star</span>
+                </div>
+              </div>
+            </div>
+            <div class="w-full max-w-[340px] mx-auto lg:max-w-none lg:w-1/2 order-1 lg:order-2 relative gsap-fade-up">
+              <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full mix-blend-screen"></div>
+              <div
+                class="relative aspect-[3/4] w-full max-w-[450px] mx-auto rounded-3xl overflow-hidden shadow-2xl border border-white/20 glassmorphism">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform hover:scale-110 duration-1000"
+                  data-alt="High-end professional portrait of Dr. Heavenly Kimes"
+                  style='background-image: url("assets/bottom bio homepage heavenly face image.jpg"); filter: contrast(1.1) saturate(1.2);'>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-maroon-depth/60 via-transparent to-transparent">
+                </div>
+              </div>
+              <div
+                class="absolute -bottom-8 -right-8 bg-white/90 dark:bg-black/80 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-gold/30 transform hover:-translate-y-2 transition-transform duration-500">
+                <p class="text-maroon-depth dark:text-gold font-display italic text-2xl">"I don't just build smiles;
+                  <br />I build legacies."
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="py-32 bg-background-light dark:bg-background-dark relative overflow-hidden">
+          <div class="absolute inset-0 opacity-5 silk-texture pointer-events-none"></div>
+          <div class="max-w-[1000px] mx-auto px-6 text-center relative z-10 gsap-fade-up">
+            <p class="text-gold/50 font-display text-[8rem] leading-none mb-[-2rem] select-none">&ldquo;</p>
+            <h2
+              class="text-3xl md:text-5xl font-display italic text-maroon-depth dark:text-white leading-tight mb-12 max-w-4xl mx-auto">
+              "Dr. Heavenly isn't just a dentist or a business woman; she's a visionary who teaches you that luxury is a
+              mindset before it's a lifestyle."
+            </h2>
+            <div class="flex items-center justify-center gap-6">
+              <div class="h-px w-16 bg-gradient-to-r from-transparent to-gold"></div>
+              <p class="font-bold uppercase tracking-[0.2em] text-sm text-gold">Prestige Magazine Feature</p>
+              <div class="h-px w-16 bg-gradient-to-l from-transparent to-gold"></div>
+            </div>
+          </div>
+        </section>
+        <!-- CTA Section -->
+        <section class="px-6 md:px-20 py-24 gsap-parallax-container">
+          <div class="max-w-[1200px] mx-auto rounded-3xl overflow-hidden relative shadow-2xl">
+            <div class="absolute inset-0 bg-primary/90 mix-blend-multiply z-10"></div>
+            <div class="absolute -inset-20 bg-cover bg-center gsap-parallax-bg"
+              data-alt="Golden abstract pattern with sparkles"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuABIZAHK_FaswtrY0JPlhKZAsYJRKPmU-0-7gV2Ze657epEFMxXRCTPzWgKQ2KxjfZfhy5sEu1jX-Cxv2lfGdFYW2p0M2-Z3DXlUca_suYOFrxo4G5hxkQnCKfExUFl4VGvC7wxQ7trvqP57ynybAtOqwORGsvwElcb5LBTw3i7UHj2uOrfuNWaZi4TisHzQV1ILlJe2v8YEWCXJ7qdCEvLk21qvdGho_tXjzWax1cgf9L4c0cO5HmRz69662fs-eqe0keLNrRW7xe1");'>
+            </div>
+            <div class="relative z-20 px-8 py-20 md:p-20 text-center flex flex-col items-center">
+              <h2 class="text-white text-4xl md:text-6xl font-black mb-8 leading-tight">Ready to Ascend to <br /><span
+                  class="italic text-gold">Heavenly Heights?</span></h2>
+              <p class="text-white/80 text-lg md:text-xl max-w-2xl mb-12">Whether you seek a dazzling smile or a
+                business empire, the journey starts here.</p>
+              <div class="flex flex-wrap justify-center gap-6">
+                <button
+                  class="bg-white text-primary h-16 px-10 rounded-full font-bold uppercase tracking-widest hover:bg-gold hover:text-white transition-all shadow-xl">
+                  Join the Elite Circle
+                </button>
+                <button
+                  class="bg-transparent border-2 border-white text-white h-16 px-10 rounded-full font-bold uppercase tracking-widest hover:bg-white/10 transition-all">
+                  Request Private Consultation
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- Footer -->
+      <footer class="bg-maroon-depth text-white/80 py-16 px-6 md:px-20 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 text-gold mb-6 group cursor-default">
+              <span
+                class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform duration-500">diamond</span>
+              <h2
+                class="text-2xl md:text-3xl font-display font-medium tracking-wide group-hover:text-white transition-colors duration-500">
+                Dr. Heavenly Kimes</h2>
+            </div>
+            <p class="max-w-2xl mb-8 leading-relaxed font-display text-lg md:text-xl text-white/90">A global brand
+              dedicated to excellence in medicine,
+              entrepreneurship, and personal luxury. Founded on the principles of hard work, style, and uncompromising
+              quality.</p>
+            <div class="flex gap-4">
+              <a href="https://www.instagram.com/dr_heavenly/" target="_blank"
+                class="size-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors group">
+                <svg class="w-5 h-5 text-white/80 group-hover:text-white transition-colors" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.169a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+                </svg>
+              </a>
+              <a href="https://www.tiktok.com/@dr_heavenly" target="_blank"
+                class="size-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors group">
+                <svg class="w-5 h-5 text-white/80 group-hover:text-white transition-colors" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z" />
+                </svg>
+              </a>
+              <a href="https://www.facebook.com/people/Heavenly-Williams-Kimes/1553209297/" target="_blank"
+                class="size-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors group">
+                <svg class="w-5 h-5 text-white/80 group-hover:text-white transition-colors" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/@Dr_Heavenly" target="_blank"
+                class="size-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors group">
+                <svg class="w-5 h-5 text-white/80 group-hover:text-white transition-colors" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4
+              class="text-white text-xs font-bold uppercase tracking-widest mb-6 border-b border-gold/30 pb-2 inline-block">
+              The Campaign</h4>
+            <ul class="flex flex-col gap-4 text-sm font-medium">
+              <li><a class="hover:text-gold transition-colors block" href="https://drheavenlyforgeorgia.com"
+                  target="_blank">Dr. Heavenly For Georgia</a></li>
+              <li><a class="hover:text-gold transition-colors block" href="https://drheavenlyforgeorgia.com"
+                  target="_blank">Donate</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="text-white text-xs font-bold uppercase tracking-widest mb-6 border-b border-gold/30 pb-2 inline-block">
+              Concierge</h4>
+            <ul class="flex flex-col gap-4 text-sm font-medium">
+              <li><a class="hover:text-gold transition-colors" href="#">Contact Us</a></li>
+              <li><a class="hover:text-gold transition-colors" href="#">Privacy Policy</a></li>
+              <li><a class="hover:text-gold transition-colors" href="#">Media Kit</a></li>
+              <li><a class="hover:text-gold transition-colors" href="#">Appointment FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="max-w-[1200px] mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p class="text-xs uppercase tracking-widest font-bold">© 2026 Dr. Heavenly Kimes. All Rights Reserved.</p>
+          <p class="text-xs italic font-display">"Building legacies, one smile at a time."</p>
+        </div>
+      </footer>
+      </footer>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero Entrance Animations
+      const heroTl = gsap.timeline();
+      heroTl.fromTo(".gsap-hero",
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }
+      );
+      heroTl.fromTo(".gsap-hero-img",
+        { scale: 0.9, opacity: 0, filter: "blur(10px)" },
+        { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.5, ease: "power2.out" },
+        "-=0.8"
+      );
+
+      // Fade up on scroll
+      gsap.utils.toArray('.gsap-fade-up').forEach(element => {
+        gsap.fromTo(element,
+          { y: 60, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: element,
+              start: "top 85%",
+            },
+            y: 0, opacity: 1, duration: 1, ease: "power2.out"
+          }
+        );
+      });
+
+      // Staggered Cards
+      gsap.fromTo(".gsap-card",
+        { y: 100, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".gsap-card",
+            start: "top 80%",
+          },
+          y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out"
+        }
+      );
+
+      // Parallax background effect for CTA
+      gsap.to(".gsap-parallax-bg", {
+        scrollTrigger: {
+          trigger: ".gsap-parallax-container",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        },
+        yPercent: 30,
+        ease: "none"
+      });
+    });
+  </script>
+</body>
+
+</html>
